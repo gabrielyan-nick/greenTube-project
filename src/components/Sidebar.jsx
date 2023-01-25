@@ -8,7 +8,7 @@ import {
   textGreen,
 } from "../utils/constants";
 
-const Sidebar = ({ selectedCategory, setSelectedCategory }) => {
+const Sidebar = ({ onSelectCategory, category }) => {
   return (
     <Stack
       direction="row"
@@ -23,13 +23,13 @@ const Sidebar = ({ selectedCategory, setSelectedCategory }) => {
           key={i}
           className="category-btn"
           style={{
-            background: item.name === selectedCategory && mainGreen,
+            background: item.name === category && mainGreen,
           }}
-          onClick={() => setSelectedCategory(item.name)}
+          onClick={() => onSelectCategory(item.name)}
         >
           <span
             style={{
-              color: item.name === selectedCategory ? "#fff" : textGreen,
+              color: item.name === category ? "#fff" : textGreen,
             }}
           >
             {item.icon}

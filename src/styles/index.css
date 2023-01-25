@@ -2,6 +2,7 @@
   --darkgrey-bg: #272626;
   --grey-bg: #454545;
   --grey-skeleton: #555454;
+  --green-skeleton: #537c5a8c;
   --main-green: #317c40;
   --secondary-green: #3f9c51;
   --text-green: #74d385;
@@ -85,6 +86,7 @@ a {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 15px;
+  padding-bottom: 5px;
 }
 
 .video-card {

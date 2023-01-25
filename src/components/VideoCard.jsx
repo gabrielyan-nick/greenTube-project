@@ -11,12 +11,7 @@ import {
   darkGreyBg,
 } from "../utils/constants";
 
-const VideoCard = ({
-  video: {
-    id: { videoId },
-    snippet,
-  },
-}) => {
+const VideoCard = ({ video }) => {
   return (
     <Card
       className="video-card"
@@ -26,11 +21,13 @@ const VideoCard = ({
         backgroundColor: darkGreyBg,
       }}
     >
-      <Link to={videoId ? `/video/${videoId}` : demoVideoUrl}>
+      <Link
+        to={video?.id?.videoId ? `/video/${video?.id?.videoId}` : demoVideoUrl}
+      >
         <CardMedia
           className="video-img"
-          image={snippet?.thumbnails?.high?.url}
-          alt={snippet?.title}
+          image={video?.snippet?.thumbnails?.high?.url}
+          alt={video?.title}
         />
       </Link>
       <CardContent
@@ -40,20 +37,28 @@ const VideoCard = ({
           padding: "7px 14px",
         }}
       >
-        <Link to={videoId ? `/video/${videoId}` : demoVideoUrl}>
+        <Link
+          to={
+            video?.id?.videoId ? `/video/${video?.id?.videoId}` : demoVideoUrl
+          }
+        >
           <Typography variant="subtitle1" color="#fff">
-            {snippet?.title.slice(0, 50) || demoVideoTitle.slice(0, 50)}
+            {video?.snippet?.title.slice(0, 50) || demoVideoTitle.slice(0, 50)}
           </Typography>
         </Link>
         <Link
           to={
-            snippet?.channelId
-              ? `/channel/${snippet?.channelId}`
+            video?.snippet?.channelId
+              ? `/channel/${video?.snippet?.channelId}`
               : demoChannelUrl
           }
         >
-          <Typography className="video-card-subtitle" variant="subtitle2" color="gray">
-            {snippet?.channelTitle || demoChannelTitle}
+          <Typography
+            className="video-card-subtitle"
+            variant="subtitle2"
+            color="gray"
+          >
+            {video?.snippet?.channelTitle || demoChannelTitle}
             <CheckCircle sx={{ fontSize: 13, color: "gray", ml: "5px" }} />
           </Typography>
         </Link>
