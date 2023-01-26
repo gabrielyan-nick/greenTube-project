@@ -3,7 +3,7 @@ import axios from "axios";
 const BASE_URL = "https://youtube-v31.p.rapidapi.com";
 
 const options = {
-  params: {},
+  params: { maxResults: "50" },
   headers: {
     "X-RapidAPI-Key": process.env.REACT_APP_RAPID_API_KEY,
     "X-RapidAPI-Host": "youtube-v31.p.rapidapi.com",
@@ -11,14 +11,11 @@ const options = {
 };
 
 const fetchVideos =
-  (url, category = "", pageToken = "") =>
+  (url, bool = false) =>
   (dispatch) => {
-    dispatch(setLoaded(false));
+    dispatch(setLoaded(bool));
     axios
-      .get(
-        `${BASE_URL}/${url}${category}&part=snippet,id&maxResults=50&pageToken=${pageToken}`,
-        options
-      )
+      .get(`${BASE_URL}/${url}`, options)
       .then((res) => {
         dispatch(setVideos(res.data.items));
         dispatch(setNextPageToken(res.data.nextPageToken));
@@ -55,4 +52,20 @@ const setFetching = (payload) => {
   };
 };
 
-export { fetchVideos, setVideos, setLoaded, setNextPageToken, setFetching };
+const setCategory = (category) => {
+  return {
+    type: "SET_CATEGORY",
+    payload: category,
+  };
+};
+
+export {
+  fetchVideos,
+  setVideos,
+  setLoaded,
+  setNextPageToken,
+  setFetching,
+  setCategory,
+  BASE_URL,
+  options,
+};

@@ -3,6 +3,7 @@ const initialState = {
   isLoaded: false,
   nextPageToken: "",
   fetching: false,
+  category: "New",
 };
 
 const videos = (state = initialState, action) => {
@@ -10,7 +11,11 @@ const videos = (state = initialState, action) => {
     case "SET_VIDEOS":
       return {
         ...state,
-        items: action.payload,
+        items:
+          state.items.length === 0
+            ? action.payload
+            : [...state.items, ...action.payload],
+
         isLoaded: true,
       };
     case "SET_LOADED":
@@ -23,11 +28,17 @@ const videos = (state = initialState, action) => {
         ...state,
         nextPageToken: action.payload,
       };
-      case "SET_FETCHING":
-        return {
-          ...state,
-          fetching: action.payload,
-        };
+    case "SET_FETCHING":
+      return {
+        ...state,
+        fetching: action.payload,
+      };
+    case "SET_CATEGORY":
+      return {
+        ...state,
+        category: action.payload,
+        items: [],
+      };
     default:
       return state;
   }

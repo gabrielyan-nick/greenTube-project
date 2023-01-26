@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Typography, Card, CardContent, CardMedia } from "@mui/material";
+import { Typography, Box, Card, CardContent, CardMedia } from "@mui/material";
 import { CheckCircle } from "@mui/icons-material";
 import {
   demoThumbnailUrl,
@@ -18,7 +18,7 @@ const VideoCard = ({ video }) => {
       sx={{
         boxShadow: "none",
         borderRadius: "8px",
-        backgroundColor: darkGreyBg,
+        backgroundColor: darkGreyBg
       }}
     >
       <Link
@@ -33,7 +33,7 @@ const VideoCard = ({ video }) => {
       <CardContent
         className="video-descr"
         sx={{
-          backgroundColor: darkGreyBg,
+          backgroundColor: 'transparent',
           padding: "7px 14px",
         }}
       >

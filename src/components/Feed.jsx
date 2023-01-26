@@ -4,34 +4,39 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { Sidebar, Videos } from "../components";
 import useFetch from "../utils/fetchFromApi";
 import { secondaryGreen, textGreen } from "../utils/constants";
-import { fetchVideos, setFetching } from "../redux/actions/videos";
-import { setCategory } from "../redux/actions/categories";
+import { fetchVideos, setFetching, setCategory } from "../redux/actions/videos";
 import { useDispatch, useSelector } from "react-redux";
 
 const Feed = () => {
   const dispatch = useDispatch();
-  const { items, isLoaded, nextPageToken, fetching } = useSelector(
+  const { items, isLoaded, nextPageToken, fetching, category } = useSelector(
     ({ videos }) => videos
   );
-  const category = useSelector(({ categories }) => categories.category);
+
   const wrapper = useRef(null);
-  console.log(nextPageToken);
+
   useEffect(() => {
-    dispatch(fetchVideos("search?q=", category));
+    dispatch(fetchVideos(`search?q=${category}&part=snippet,id`));
   }, [category]);
 
   useEffect(() => {
-    fetching && dispatch(fetchVideos("search?q=", category, nextPageToken));
+    fetching &&
+      dispatch(
+        fetchVideos(
+          `search?q=${category}&part=snippet,id&pageToken=${nextPageToken}`,
+          true
+        )
+      );
   }, [fetching]);
 
   useEffect(() => {
     const target = wrapper.current;
-    target.addEventListener("scroll", scroll);
+    target.addEventListener("scroll", lazzyLoading);
 
-    return () => target.removeEventListener("scroll", scroll);
+    return () => target.removeEventListener("scroll", lazzyLoading);
   }, []);
 
-  const scroll = (e) => {
+  const lazzyLoading = (e) => {
     let scrollHeight = Math.max(
       wrapper.current.scrollHeight,
       wrapper.current.scrollHeight
@@ -41,7 +46,7 @@ const Feed = () => {
       wrapper.current.scrollTop ||
       wrapper.current.scrollTop;
 
-    if (scrollTop + wrapper.current.clientHeight >= scrollHeight) {
+    if (scrollTop + wrapper.current.clientHeight >= scrollHeight - 300) {
       dispatch(setFetching(true));
     }
   };

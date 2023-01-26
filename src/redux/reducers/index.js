@@ -1,7 +1,7 @@
 import videos from "./videos";
-import categories from "./categories";
+import channelDetail from "./channelDetail";
 import { combineReducers } from "redux";
 
-const rootReducer = combineReducers({ videos, categories });
+const rootReducer = combineReducers({ videos, channelDetail });
 
 export default rootReducer;
