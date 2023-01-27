@@ -1,21 +1,47 @@
-import { React, useEffect, useState } from "react";
+import { React, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Videos, ChannelCard } from "../components";
 import { Box, Typography } from "@mui/material";
-
-import { fetchChannelDetail } from "../redux/actions/channelDetail";
+import {
+  fetchChannelDetail,
+  fetchChannelVideos,
+  setFetching,
+} from "../redux/actions/channelDetail";
 
 const ChannelDetail = () => {
   const dispatch = useDispatch();
-  const channelDetail = useSelector(
-    ({ channelDetail }) => channelDetail.channelDetail
-  );
+  const { channelDetail, channelVideos, isLoaded, nextPageToken, fetching } =
+    useSelector(({ channelDetail }) => channelDetail);
   const { id } = useParams();
-  console.log(channelDetail);
+  const videoCount = +channelDetail?.statistics?.videoCount;
+
   useEffect(() => {
     dispatch(fetchChannelDetail(id));
+    dispatch(fetchChannelVideos(id));
   }, [id]);
+
+  useEffect(() => {
+    fetching && dispatch(fetchChannelVideos(id, nextPageToken));
+  }, [fetching]);
+
+  useEffect(() => {
+    window.addEventListener("scroll", lazzyLoading);
+
+    return () => window.removeEventListener("scroll", lazzyLoading);
+  }, []);
+
+  const lazzyLoading = () => {
+    if (
+      document.documentElement.scrollTop +
+        document.documentElement.clientHeight >=
+        document.documentElement.scrollHeight - 300 &&
+      channelVideos.length < videoCount
+    ) {
+      dispatch(setFetching(true));
+    }
+  };
+
   return (
     <Box minHeight="95vh">
       <Box
@@ -36,14 +62,18 @@ const ChannelDetail = () => {
           }}
         />
 
-        <Box style={{ display: "flex", gap: '15px' }}>
-          <ChannelCard channelDetail={channelDetail} />
-          <Box  className='channel-descr-wrapper'>
-            <Typography variant="body1" color='#fff'>
-              {channelDetail?.snippet?.description}
+        <div className="channel-content-wrapper">
+          <ChannelCard channelDetail={channelDetail} classN={"channel-card"} />
+          <div className="channel-descr">
+            <Typography variant="body1" color="#fff">
+              {channelDetail?.snippet?.description.slice(0, 950) ||
+                "Very informative description..."}
             </Typography>
-          </Box>
-        </Box>
+          </div>
+        </div>
+      </Box>
+      <Box p={2}>
+        <Videos videos={channelVideos} isLoaded={isLoaded} />
       </Box>
     </Box>
   );

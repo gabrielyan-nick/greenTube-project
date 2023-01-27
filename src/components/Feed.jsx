@@ -36,17 +36,11 @@ const Feed = () => {
     return () => target.removeEventListener("scroll", lazzyLoading);
   }, []);
 
-  const lazzyLoading = (e) => {
-    let scrollHeight = Math.max(
-      wrapper.current.scrollHeight,
-      wrapper.current.scrollHeight
-    );
-    let scrollTop =
-      wrapper.current.pageYOffset ||
-      wrapper.current.scrollTop ||
-      wrapper.current.scrollTop;
-
-    if (scrollTop + wrapper.current.clientHeight >= scrollHeight - 300) {
+  const lazzyLoading = () => {
+    if (
+      wrapper.current.scrollTop + wrapper.current.clientHeight >=
+      wrapper.current.scrollHeight - 300
+    ) {
       dispatch(setFetching(true));
     }
   };
@@ -94,5 +88,3 @@ const Feed = () => {
 };
 
 export default Feed;
-
-// `search?part=snippet&q=${selectedCategory}`

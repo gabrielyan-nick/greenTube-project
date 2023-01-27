@@ -90,14 +90,22 @@ a {
   padding-bottom: 5px;
 }
 
+.channel-content-wrapper {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
 .channel-card {
   width: 250px;
 }
 
-.video-card {
+.video-card,
+.skeleton {
   width: 100%;
   height: 275px;
 }
+
 .video-card:hover {
   background-color: var(--grey-hover);
   transition: all 0.3s;
@@ -113,13 +121,15 @@ a {
   height: 170px;
 }
 
-.channel-descr-wrapper {
-  width: 500px;
-  padding: 20px 0;
-}
-
 .skeleton-videocard {
   width: 100%;
+}
+
+.channel-descr {
+  width: 600px;
+  display: flex;
+  align-items: center;
+  padding: 20px;
 }
 
 @media screen and (max-width: 1600px) {
@@ -168,6 +178,12 @@ a {
   .videos-wrapper {
     grid-template-columns: repeat(3, 1fr);
   }
+
+  .channel-descr {
+    width: calc(100% - 280px);
+    margin-right: 15px;
+    padding: 20px 0;
+  }
 }
 
 @media screen and (max-width: 800px) {
@@ -198,18 +214,36 @@ a {
     gap: 5px;
   }
 
-  .video-card {
+  .video-card,
+  .skeleton {
     height: 370px;
   }
 
   .video-img {
     height: 290px;
   }
+
+  .channel-content-wrapper {
+    display: block;
+    width: 100%;
+  }
+
+  .channel-descr {
+    width: 93%;
+    margin: 0;
+    padding: 20px;
+  }
+
+  .channel-card {
+    width: 100%;
+  }
 }
 
 
 @media screen and (max-width: 500px) {
-  .video-card {
+
+  .video-card,
+  .skeleton {
     height: 380px;
   }
 
@@ -220,7 +254,9 @@ a {
 }
 
 @media screen and (max-width: 400px) {
-  .video-card {
+
+  .video-card,
+  .skeleton {
     height: 350px;
   }
 

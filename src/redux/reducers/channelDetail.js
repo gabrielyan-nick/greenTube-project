@@ -1,7 +1,9 @@
 const initialState = {
   channelDetail: [],
   channelVideos: [],
-  nextPageToken: ''
+  isLoaded: false,
+  nextPageToken: "",
+  fetching: false,
 };
 
 const channelDetail = (state = initialState, action) => {
@@ -14,13 +16,31 @@ const channelDetail = (state = initialState, action) => {
     case "SET_CHANNEL_VIDEOS":
       return {
         ...state,
-        channelVideos: action.payload,
+        channelVideos:
+          state.channelVideos.length === 0
+            ? action.payload
+            : [...state.channelVideos, ...action.payload],
+        isLoaded: true,
       };
-      case "SET_CHANNEL_NEXT_PAGE_TOKEN":
-        return {
-          ...state,
-          nextPageToken: action.payload,
-        };
+    case "SET_CHANNEL_NEXT_PAGE_TOKEN":
+      return {
+        ...state,
+        nextPageToken: action.payload,
+      };
+
+    case "SET_LOADED":
+      return {
+        ...state,
+        isLoaded: action.payload,
+      };
+    case "SET_FETCHING":
+      return {
+        ...state,
+        fetching: action.payload,
+      };
+    case "CLEAR_DATA":
+      return initialState;
+
     default:
       return state;
   }

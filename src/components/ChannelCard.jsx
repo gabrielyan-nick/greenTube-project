@@ -8,14 +8,14 @@ import {
   secondaryGreen,
 } from "../utils/constants";
 
-const ChannelCard = ({ channelDetail, isInVideos = false }) => {
+const ChannelCard = ({ channelDetail, classN, borderRadius }) => {
   return (
     <Box
-      className={isInVideos ? "video-card" : "channel-card"}
+      className={`${classN}`}
       sx={{
         boxShadow: "none",
-        borderRadius: `${isInVideos ? "8px" : "none"}`,
         backgroundColor: darkGreyBg,
+        borderRadius,
       }}
     >
       <Link
@@ -28,7 +28,7 @@ const ChannelCard = ({ channelDetail, isInVideos = false }) => {
             justifyContent: "center",
             textAlign: "center",
             color: "#fff",
-            padding: `${isInVideos ? "30px 0 0" : "20px 0 0"}`,
+            padding: "20px 14px 0 14px",
           }}
         >
           <CardMedia
@@ -41,7 +41,7 @@ const ChannelCard = ({ channelDetail, isInVideos = false }) => {
               borderRadius: "50%",
               height: "150px",
               width: "150px",
-              border: "1px solid #e3e3e3",
+              border: "1px solid #90ee90",
               margin: "0 auto 20px",
             }}
           ></CardMedia>

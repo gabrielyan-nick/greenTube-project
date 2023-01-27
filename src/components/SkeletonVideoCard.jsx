@@ -3,7 +3,7 @@ import ContentLoader from "react-content-loader";
 
 const SkeletonVideoCard = () => (
   <ContentLoader
-    className="video-card"
+    className="skeleton"
     speed={2}
     viewBox="0 0 350 275"
     backgroundColor="#555454"
