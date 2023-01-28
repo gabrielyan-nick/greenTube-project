@@ -92,13 +92,17 @@ a {
 
 .channel-content-wrapper {
   display: flex;
-  gap: 30px;
   align-items: center;
+  width: 60%;
 }
 
-.channel-card {
-  width: 250px;
+.skeleton-channel-card {
+  width: 100%;
 }
+
+/* .channel-card {
+  width: 250px;
+} */
 
 .video-card,
 .skeleton {
@@ -125,19 +129,42 @@ a {
   width: 100%;
 }
 
-.channel-descr {
-  width: 600px;
+.channel-descr-wrapper {
+  width: calc(100% - 300px);
   display: flex;
+  flex-direction: column;
   align-items: center;
   padding: 20px;
+}
+
+.descr-resize-btn {
+  display: none;
+  width: 100%;
+  border: none;
+  height: 25px;
+  background-color: #383737;
+  transition: all 0.3s;
+  &:hover {
+    background-color: #4e4e4e;
+    .btn-text {
+      color: #74d385;
+    }
+  }
+}
+
+.btn-text {
+  color: rgba(255, 255, 255, 0.589);
+  transition: all 0.3s;
 }
 
 @media screen and (max-width: 1600px) {
   .aside {
     width: 170px;
   }
+  .channel-content-wrapper {
+    width: 80%;
+  }
 }
-
 
 @media screen and (max-width: 1400px) {
   .videos-wrapper {
@@ -146,21 +173,21 @@ a {
   }
 }
 
-
 @media screen and (max-width: 1200px) {
   .aside {
     width: 150px;
   }
 }
 
-
 @media screen and (max-width: 1100px) {
   .videos-wrapper {
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .channel-content-wrapper {
+    width: 100%;
+  }
 }
-
 
 @media screen and (max-width: 900px) {
   .category-btn {
@@ -179,10 +206,18 @@ a {
     grid-template-columns: repeat(3, 1fr);
   }
 
-  .channel-descr {
+  .channel-descr-wrapper {
     width: calc(100% - 280px);
     margin-right: 15px;
     padding: 20px 0;
+  }
+
+  .channel-descr {
+    max-height: 235px;
+    overflow: hidden;
+  }
+  .descr-resize-btn {
+    display: block;
   }
 }
 
@@ -193,6 +228,17 @@ a {
 
   .search-bar {
     width: 280px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .channel-content-wrapper {
+    flex-direction: column;
+    width: 100%;
+  }
+  .channel-descr-wrapper {
+    width: 90%;
+    margin: 0;
   }
 }
 
@@ -223,11 +269,6 @@ a {
     height: 290px;
   }
 
-  .channel-content-wrapper {
-    display: block;
-    width: 100%;
-  }
-
   .channel-descr {
     width: 93%;
     margin: 0;
@@ -239,9 +280,7 @@ a {
   }
 }
 
-
 @media screen and (max-width: 500px) {
-
   .video-card,
   .skeleton {
     height: 380px;
@@ -250,11 +289,9 @@ a {
   .video-img {
     height: 280px;
   }
-
 }
 
 @media screen and (max-width: 400px) {
-
   .video-card,
   .skeleton {
     height: 350px;
@@ -263,5 +300,4 @@ a {
   .video-img {
     height: 250px;
   }
-
 }

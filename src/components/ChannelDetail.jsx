@@ -1,28 +1,34 @@
-import { React, useEffect } from "react";
+import { React, useEffect, useState, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Videos, ChannelCard } from "../components";
+import { Videos, ChannelCard, SkeletonChannelCard } from "../components";
 import { Box, Typography } from "@mui/material";
 import {
   fetchChannelDetail,
   fetchChannelVideos,
   setFetching,
+  setLazzyLoading,
 } from "../redux/actions/channelDetail";
 
 const ChannelDetail = () => {
+  const [isTabletWidth, setIsTabletWidth] = useState(false);
+  const [isMobileWidth, setIsMobileWidth] = useState(false);
+  const [isOpenDescr, setOpenDescr] = useState(false);
   const dispatch = useDispatch();
   const { channelDetail, channelVideos, isLoaded, nextPageToken, fetching } =
     useSelector(({ channelDetail }) => channelDetail);
   const { id } = useParams();
-  const videoCount = +channelDetail?.statistics?.videoCount;
+  const descrRef = useRef(null);
+
+  // const videoCount = +channelDetail?.statistics?.videoCount;
 
   useEffect(() => {
     dispatch(fetchChannelDetail(id));
-    dispatch(fetchChannelVideos(id));
+    // dispatch(fetchChannelVideos(id));
   }, [id]);
 
   useEffect(() => {
-    fetching && dispatch(fetchChannelVideos(id, nextPageToken));
+    fetching && dispatch(fetchChannelDetail(id, nextPageToken, true));
   }, [fetching]);
 
   useEffect(() => {
@@ -31,12 +37,38 @@ const ChannelDetail = () => {
     return () => window.removeEventListener("scroll", lazzyLoading);
   }, []);
 
+  useEffect(() => {
+    window.addEventListener("resize", onSetDeviceWidth);
+
+    return () => window.removeEventListener("resize", onSetDeviceWidth);
+  }, []);
+
+  useEffect(() => onSetDeviceWidth(), []);
+
+  const onSetDeviceWidth = () => {
+    document.documentElement.clientWidth < 900
+      ? setIsTabletWidth(true)
+      : setIsTabletWidth(false);
+
+    if (document.documentElement.clientWidth < 700) {
+      setIsMobileWidth(true);
+      setIsTabletWidth(false);
+    } else {
+      setIsMobileWidth(false);
+    }
+  };
+
+  const onToggleOpenDescr = () => {
+    setOpenDescr(!isOpenDescr);
+  };
+
   const lazzyLoading = () => {
     if (
       document.documentElement.scrollTop +
         document.documentElement.clientHeight >=
-        document.documentElement.scrollHeight - 300 &&
-      channelVideos.length < videoCount
+      document.documentElement.scrollHeight - 300
+      //    &&
+      // channelVideos.length < videoCount
     ) {
       dispatch(setFetching(true));
     }
@@ -61,18 +93,84 @@ const ChannelDetail = () => {
               "linear-gradient(90deg, rgba(1,135,73,1) 0%, rgba(144,238,144,1) 50%, rgba(46,139,87,1) 100%)",
           }}
         />
-
-        <div className="channel-content-wrapper">
-          <ChannelCard channelDetail={channelDetail} classN={"channel-card"} />
-          <div className="channel-descr">
-            <Typography variant="body1" color="#fff">
-              {channelDetail?.snippet?.description.slice(0, 950) ||
-                "Very informative description..."}
-            </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            width: "100%",
+            alignItems: "center",
+          }}
+        >
+          <div className="channel-content-wrapper">
+            {isLoaded ? (
+              <>
+                <ChannelCard
+                  id={id} //
+                  channelDetail={channelDetail}
+                  classN={"channel-card"}
+                  width={"300px"}
+                />
+                <div
+                  className="channel-descr-wrapper"
+                  style={{
+                    padding: `${
+                      isMobileWidth && isOpenDescr
+                        ? "20px 0"
+                        : isMobileWidth && !isOpenDescr
+                        ? "0px"
+                        : "20px"
+                    }
+                      
+                          `,
+                  }}
+                >
+                  <Typography
+                    ref={descrRef}
+                    sx={{
+                      height: `${
+                        isTabletWidth
+                          ? `${
+                              isOpenDescr
+                                ? `${descrRef.current.scrollHeight}px`
+                                : "235px"
+                            }`
+                          : isMobileWidth
+                          ? `${
+                              isOpenDescr
+                                ? `${descrRef.current.scrollHeight}px`
+                                : "0px"
+                            }`
+                          : "auto"
+                      }`,
+                      overflow: "hidden",
+                      transition: "all .3s",
+                    }}
+                    variant="body1"
+                    color="#fff"
+                  >
+                    {channelDetail?.description ||
+                      "Very informative description..."}
+                  </Typography>
+                </div>
+              </>
+            ) : (
+              <SkeletonChannelCard />
+            )}
           </div>
-        </div>
+          {(channelDetail?.description &&
+            channelDetail?.description.length > 735) ||
+          isMobileWidth ? (
+            <button onClick={onToggleOpenDescr} className="descr-resize-btn">
+              <Typography variant="button" className="btn-text">
+                Show more
+              </Typography>
+            </button>
+          ) : (
+            <></>
+          )}
+        </Box>
       </Box>
-      <Box p={2}>
+      <Box px={2} py={3}>
         <Videos videos={channelVideos} isLoaded={isLoaded} />
       </Box>
     </Box>

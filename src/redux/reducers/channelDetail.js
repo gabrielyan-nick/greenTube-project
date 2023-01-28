@@ -16,11 +16,9 @@ const channelDetail = (state = initialState, action) => {
     case "SET_CHANNEL_VIDEOS":
       return {
         ...state,
-        channelVideos:
-          state.channelVideos.length === 0
-            ? action.payload
-            : [...state.channelVideos, ...action.payload],
+        channelVideos: action.payload,
         isLoaded: true,
+        fetching: false,
       };
     case "SET_CHANNEL_NEXT_PAGE_TOKEN":
       return {
@@ -38,9 +36,13 @@ const channelDetail = (state = initialState, action) => {
         ...state,
         fetching: action.payload,
       };
-    case "CLEAR_DATA":
-      return initialState;
-
+    case "SET_LAZZY_LOADING":
+      return {
+        ...state,
+        channelVideos: [...state.channelVideos, ...action.payload],
+        isLoaded: true,
+        fetching: false,
+      };
     default:
       return state;
   }

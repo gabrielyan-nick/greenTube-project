@@ -16,14 +16,14 @@ const Feed = () => {
   const wrapper = useRef(null);
 
   useEffect(() => {
-    dispatch(fetchVideos(`search?q=${category}&part=snippet,id`));
+    dispatch(fetchVideos(`search?query=${category}`));  //&part=snippet,id
   }, [category]);
 
   useEffect(() => {
     fetching &&
       dispatch(
         fetchVideos(
-          `search?q=${category}&part=snippet,id&pageToken=${nextPageToken}`,
+          `search?query=${category}&token=${nextPageToken}`,  //&part=snippet,id
           true
         )
       );
@@ -72,7 +72,7 @@ const Feed = () => {
       <Box
         ref={wrapper}
         p={{ md: 2, sm: 1, xs: "5px" }}
-        sx={{ overflowY: "auto", height: "90vh", flex: 2 }}
+        sx={{ overflowY: "auto", height: "90vh"}}
       >
         <Typography
           variant="h4"

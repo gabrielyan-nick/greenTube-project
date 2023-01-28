@@ -8,7 +8,13 @@ import {
   secondaryGreen,
 } from "../utils/constants";
 
-const ChannelCard = ({ channelDetail, classN, borderRadius }) => {
+const ChannelCard = ({
+  channelDetail,
+  classN,
+  borderRadius,
+  width = "250px",
+  id = "",  //
+}) => {
   return (
     <Box
       className={`${classN}`}
@@ -16,10 +22,13 @@ const ChannelCard = ({ channelDetail, classN, borderRadius }) => {
         boxShadow: "none",
         backgroundColor: darkGreyBg,
         borderRadius,
+        width,
       }}
     >
       <Link
-        to={`/channel/${channelDetail?.id?.channelId || channelDetail?.id}`}
+        to={`/channel/${
+          channelDetail?.id?.channelId || channelDetail?.id || id
+        }`}
       >
         <CardContent
           sx={{
@@ -33,10 +42,10 @@ const ChannelCard = ({ channelDetail, classN, borderRadius }) => {
         >
           <CardMedia
             image={
-              channelDetail?.snippet?.thumbnails?.high?.url ||
+              channelDetail.thumbnail ? channelDetail.thumbnail[2 || 1 || 0]?.url :
               demoProfilePicture
             }
-            alt={channelDetail?.snippet?.title}
+            alt={channelDetail?.title}
             sx={{
               borderRadius: "50%",
               height: "150px",
@@ -46,14 +55,12 @@ const ChannelCard = ({ channelDetail, classN, borderRadius }) => {
             }}
           ></CardMedia>
           <Typography variant="h6">
-            {channelDetail?.snippet?.title}
+            {channelDetail?.title}
             <CheckCircle sx={{ fontSize: 15, color: "gray", ml: "5px" }} />
           </Typography>
-          {channelDetail?.statistics?.subscriberCount && (
+          {channelDetail?.subscriberCount && (
             <Typography>
-              {parseInt(
-                channelDetail?.statistics?.subscriberCount
-              ).toLocaleString()}
+              {parseInt(channelDetail?.subscriberCount).toLocaleString()}
               &nbsp;Subscribers
             </Typography>
           )}

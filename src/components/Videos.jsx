@@ -9,15 +9,15 @@ const Videos = ({ videos, isLoaded }) => {
       {isLoaded
         ? videos.map((item, i) => (
             <Box key={i}>
-              {(item.id.videoId && <VideoCard video={item} />) ||
-                (item.id.channelId && (
+              {(item.videoId && <VideoCard video={item} />) ||
+                (item.channelId && (
                   <ChannelCard
                     channelDetail={item}
                     classN={"video-card"}
                     borderRadius={"8px"}
                   />
                 )) ||
-                (item.id.playlistId && <VideoCard video={item} />)}
+                (item.playlistId && <VideoCard video={item} />)}
             </Box>
           ))
         : Array(12)
