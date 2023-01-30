@@ -11,12 +11,9 @@ const videos = (state = initialState, action) => {
     case "SET_VIDEOS":
       return {
         ...state,
-        items:
-          state.items.length === 0
-            ? action.payload
-            : [...state.items, ...action.payload],
-
+        items: action.payload,
         isLoaded: true,
+        fetching: false,
       };
     case "SET_LOADED":
       return {
@@ -39,6 +36,14 @@ const videos = (state = initialState, action) => {
         category: action.payload,
         items: [],
       };
+    case "SET_LAZZY_LOADING":
+      return {
+        ...state,
+        items: [...state.items, ...action.payload],
+        isLoaded: true,
+        fetching: false,
+      };
+
     default:
       return state;
   }

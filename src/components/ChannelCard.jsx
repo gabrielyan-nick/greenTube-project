@@ -13,23 +13,25 @@ const ChannelCard = ({
   classN,
   borderRadius,
   width = "250px",
-  id = "",  //
+  id = "",
 }) => {
+  const thumbnail = channelDetail.thumbnail[0]?.url.includes("https", 0)
+    ? channelDetail.thumbnail[0]?.url
+    : `https:${channelDetail.thumbnail[0]?.url}`;
   return (
     <Box
       className={`${classN}`}
       sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
         boxShadow: "none",
         backgroundColor: darkGreyBg,
         borderRadius,
         width,
       }}
     >
-      <Link
-        to={`/channel/${
-          channelDetail?.id?.channelId || channelDetail?.id || id
-        }`}
-      >
+      <Link to={`/channel/${channelDetail?.channelId || id}`}>
         <CardContent
           sx={{
             display: "flex",
@@ -42,8 +44,9 @@ const ChannelCard = ({
         >
           <CardMedia
             image={
-              channelDetail.thumbnail ? channelDetail.thumbnail[2 || 1 || 0]?.url :
-              demoProfilePicture
+              channelDetail.thumbnail
+                ? thumbnail
+                : demoProfilePicture
             }
             alt={channelDetail?.title}
             sx={{

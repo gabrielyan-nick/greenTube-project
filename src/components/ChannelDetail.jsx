@@ -6,9 +6,9 @@ import { Box, Typography } from "@mui/material";
 import {
   fetchChannelDetail,
   fetchChannelVideos,
-  setFetching,
   setLazzyLoading,
 } from "../redux/actions/channelDetail";
+import { setFetching } from "../redux/actions/videos";
 
 const ChannelDetail = () => {
   const [isTabletWidth, setIsTabletWidth] = useState(false);
@@ -24,7 +24,6 @@ const ChannelDetail = () => {
 
   useEffect(() => {
     dispatch(fetchChannelDetail(id));
-    // dispatch(fetchChannelVideos(id));
   }, [id]);
 
   useEffect(() => {
@@ -67,8 +66,6 @@ const ChannelDetail = () => {
       document.documentElement.scrollTop +
         document.documentElement.clientHeight >=
       document.documentElement.scrollHeight - 300
-      //    &&
-      // channelVideos.length < videoCount
     ) {
       dispatch(setFetching(true));
     }

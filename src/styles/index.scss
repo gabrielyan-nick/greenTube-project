@@ -6,7 +6,7 @@
   --green-skeleton: #537c5a8c;
   --main-green: #317c40;
   --secondary-green: #3f9c51;
-  --text-green: #74d385;
+  --text-green: #9fe9ac;
 }
 
 html,
@@ -45,8 +45,8 @@ a {
   color: white !important;
 }
 
-.react-player {
-  height: 77vh !important;
+.player {
+  height: 70vh !important;
   width: 100% !important;
 }
 
@@ -58,7 +58,7 @@ a {
   font-size: 16px;
   line-height: 20px;
   background-color: #454545;
-  color: #a8c7ae;
+  color: #c0e0c7;
 }
 
 .category-btn {
@@ -90,6 +90,14 @@ a {
   padding-bottom: 5px;
 }
 
+.related-videos-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: scroll;
+  height: 92.2vh;
+}
+
 .channel-content-wrapper {
   display: flex;
   align-items: center;
@@ -99,10 +107,6 @@ a {
 .skeleton-channel-card {
   width: 100%;
 }
-
-/* .channel-card {
-  width: 250px;
-} */
 
 .video-card,
 .skeleton {
@@ -152,9 +156,16 @@ a {
   }
 }
 
+.search-wrapper {
+  margin-right: 60px;
+}
+
 .btn-text {
   color: rgba(255, 255, 255, 0.589);
   transition: all 0.3s;
+}
+.header-wrapper {
+  padding: 10px 20px;
 }
 
 @media screen and (max-width: 1600px) {
@@ -240,6 +251,9 @@ a {
     width: 90%;
     margin: 0;
   }
+  .search-wrapper {
+    margin-right: 0;
+  }
 }
 
 @media screen and (max-width: 600px) {
@@ -299,5 +313,17 @@ a {
 
   .video-img {
     height: 250px;
+  }
+  .search-bar {
+    width: 170px;
+  }
+  .header-wrapper {
+    padding: 10px;
+  }
+}
+
+@media screen and (max-width: 300px) {
+  .search-bar {
+    width: 150px;
   }
 }

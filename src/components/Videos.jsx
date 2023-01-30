@@ -1,11 +1,9 @@
-import React from "react";
-import { useEffect, useRef } from "react";
 import { Box } from "@mui/material";
 import { VideoCard, ChannelCard, SkeletonVideoCard } from "../components";
 
-const Videos = ({ videos, isLoaded }) => {
+const Videos = ({ videos, isLoaded, classN = "videos-wrapper" }) => {
   return (
-    <Box className="videos-wrapper">
+    <Box className={classN}>
       {isLoaded
         ? videos.map((item, i) => (
             <Box key={i}>
@@ -15,6 +13,7 @@ const Videos = ({ videos, isLoaded }) => {
                     channelDetail={item}
                     classN={"video-card"}
                     borderRadius={"8px"}
+                    width={"100%"}
                   />
                 )) ||
                 (item.playlistId && <VideoCard video={item} />)}

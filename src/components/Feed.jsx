@@ -12,21 +12,14 @@ const Feed = () => {
   const { items, isLoaded, nextPageToken, fetching, category } = useSelector(
     ({ videos }) => videos
   );
-
   const wrapper = useRef(null);
 
   useEffect(() => {
-    dispatch(fetchVideos(`search?query=${category}`));  //&part=snippet,id
+    dispatch(fetchVideos(category));
   }, [category]);
 
   useEffect(() => {
-    fetching &&
-      dispatch(
-        fetchVideos(
-          `search?query=${category}&token=${nextPageToken}`,  //&part=snippet,id
-          true
-        )
-      );
+    fetching && dispatch(fetchVideos(category, nextPageToken, true));
   }, [fetching]);
 
   useEffect(() => {
@@ -72,7 +65,7 @@ const Feed = () => {
       <Box
         ref={wrapper}
         p={{ md: 2, sm: 1, xs: "5px" }}
-        sx={{ overflowY: "auto", height: "90vh"}}
+        sx={{ overflowY: "auto", height: "90vh" }}
       >
         <Typography
           variant="h4"

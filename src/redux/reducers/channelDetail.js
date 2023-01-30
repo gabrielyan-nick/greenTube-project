@@ -13,14 +13,14 @@ const channelDetail = (state = initialState, action) => {
         ...state,
         channelDetail: action.payload,
       };
-    case "SET_CHANNEL_VIDEOS":
+    case "SET_VIDEOS":
       return {
         ...state,
         channelVideos: action.payload,
         isLoaded: true,
         fetching: false,
       };
-    case "SET_CHANNEL_NEXT_PAGE_TOKEN":
+    case "SET_NEXT_PAGE_TOKEN":
       return {
         ...state,
         nextPageToken: action.payload,

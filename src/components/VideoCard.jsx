@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { Typography, Box, Card, CardContent, CardMedia } from "@mui/material";
 import { CheckCircle } from "@mui/icons-material";
 import {
@@ -12,6 +13,8 @@ import {
 } from "../utils/constants";
 
 const VideoCard = ({ video }) => {
+  const channelTitle = useSelector(({ channelDetail }) => channelDetail.channelDetail.title);
+
   return (
     <Card
       className="video-card"
@@ -38,8 +41,8 @@ const VideoCard = ({ video }) => {
                 color: "#fff",
                 lineHeight: 1,
                 padding: "4px 6px",
-                backgroundColor: '#3b3b3b',
-                borderRadius: '7px'
+                backgroundColor: "#3b3b3b",
+                borderRadius: "7px",
               }}
             >
               {video?.lengthText}
@@ -69,7 +72,7 @@ const VideoCard = ({ video }) => {
             variant="subtitle2"
             color="gray"
           >
-            {video?.channelTitle || demoChannelTitle}
+            {video?.channelTitle || channelTitle || demoChannelTitle}
             <CheckCircle sx={{ fontSize: 13, color: "gray", ml: "5px" }} />
           </Typography>
         </Link>

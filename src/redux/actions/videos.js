@@ -1,9 +1,9 @@
 import axios from "axios";
 
 // const BASE_URL = "https://youtube-v31.p.rapidapi.com";
-const BASE_URL = "https://youtube-v3-alternative.p.rapidapi.com";
+export const BASE_URL = "https://youtube-v3-alternative.p.rapidapi.com";
 
-const options = {
+export const options = {
   // params: { maxResults: "50" },
   headers: {
     "X-RapidAPI-Key": process.env.REACT_APP_RAPID_API_KEY,
@@ -12,62 +12,62 @@ const options = {
   },
 };
 
-const fetchVideos =
-  (url, bool = false) =>
+export const fetchVideos =
+  (category, pageToken = "", bool = false) =>
   (dispatch) => {
     dispatch(setLoaded(bool));
     axios
-      .get(`${BASE_URL}/${url}`, options)
+      .get(`${BASE_URL}/search?query=${category}&token=${pageToken}`, options)
       .then((res) => {
-        dispatch(setVideos(res.data.data));
-        dispatch(setNextPageToken(res.data.continuation));
-        dispatch(setFetching(false));
+        if (pageToken === "") {
+          dispatch(setVideos(res.data.data));
+          dispatch(setNextPageToken(res.data.continuation));
+        } else {
+          dispatch(setLazzyLoading(res.data.data));
+          dispatch(setNextPageToken(res.data.continuation));
+        }
       })
       .catch((e) => console.log(e));
   };
 
-const setLoaded = (payload) => {
+export const setLoaded = (payload) => {
   return {
     type: "SET_LOADED",
     payload,
   };
 };
 
-const setVideos = (payload) => {
+export const setVideos = (payload) => {
   return {
     type: "SET_VIDEOS",
     payload,
   };
 };
 
-const setNextPageToken = (token) => {
+export const setNextPageToken = (token) => {
   return {
     type: "SET_NEXT_PAGE_TOKEN",
     payload: token,
   };
 };
 
-const setFetching = (payload) => {
+export const setFetching = (payload) => {
   return {
     type: "SET_FETCHING",
     payload,
   };
 };
 
-const setCategory = (category) => {
+export const setCategory = (category) => {
   return {
     type: "SET_CATEGORY",
     payload: category,
   };
 };
 
-export {
-  fetchVideos,
-  setVideos,
-  setLoaded,
-  setNextPageToken,
-  setFetching,
-  setCategory,
-  BASE_URL,
-  options,
+export const setLazzyLoading = (payload) => {
+  return {
+    type: "SET_LAZZY_LOADING",
+    payload,
+  };
 };
