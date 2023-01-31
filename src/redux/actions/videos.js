@@ -1,13 +1,10 @@
 import axios from "axios";
 
-// const BASE_URL = "https://youtube-v31.p.rapidapi.com";
 export const BASE_URL = "https://youtube-v3-alternative.p.rapidapi.com";
 
 export const options = {
-  // params: { maxResults: "50" },
   headers: {
     "X-RapidAPI-Key": process.env.REACT_APP_RAPID_API_KEY,
-    // "X-RapidAPI-Host": "youtube-v31.p.rapidapi.com",
     "X-RapidAPI-Host": "youtube-v3-alternative.p.rapidapi.com",
   },
 };
@@ -15,6 +12,7 @@ export const options = {
 export const fetchVideos =
   (category, pageToken = "", bool = false) =>
   (dispatch) => {
+    dispatch(setError(false));
     dispatch(setLoaded(bool));
     axios
       .get(`${BASE_URL}/search?query=${category}&token=${pageToken}`, options)
@@ -27,12 +25,22 @@ export const fetchVideos =
           dispatch(setNextPageToken(res.data.continuation));
         }
       })
-      .catch((e) => console.log(e));
+      .catch((e) => {
+        dispatch(setError(true));
+        console.log(e);
+      });
   };
 
 export const setLoaded = (payload) => {
   return {
     type: "SET_LOADED",
+    payload,
+  };
+};
+
+export const setError = (payload) => {
+  return {
+    type: "SET_ERROR",
     payload,
   };
 };

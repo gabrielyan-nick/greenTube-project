@@ -1,0 +1,19 @@
+import error from "./Error.png";
+
+const ErrorMessage = () => {
+  return (
+    <img
+      src={error}
+      alt="error"
+      style={{
+        width: "250px",
+        height: "250px",
+        margin: "0 auto",
+        objectFit: "contain",
+        display: "block",
+      }}
+    />
+  );
+};
+
+export default ErrorMessage;

@@ -1,11 +1,10 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { Stack, Box, Typography } from "@mui/material";
-import { useState, useEffect, useRef, useCallback } from "react";
+import { Box, Typography } from "@mui/material";
+import { useEffect, useRef, useCallback } from "react";
 import { Videos } from "../components";
-import useFetch from "../utils/fetchFromApi";
 import { textGreen } from "../utils/constants";
-import { fetchVideos, setFetching, setCategory } from "../redux/actions/videos";
+import { fetchVideos, setFetching } from "../redux/actions/videos";
 import { useDispatch, useSelector } from "react-redux";
 
 const SearchFeed = () => {
@@ -51,8 +50,8 @@ const SearchFeed = () => {
         fontWeight="bold"
         sx={{ color: "#fff", marginBottom: "5px" }}
       >
-        Results for: <span style={{ color: textGreen }}>{searchTerm}</span>{' '}
-         videos
+        Results for: <span style={{ color: textGreen }}>{searchTerm}</span>{" "}
+        videos
       </Typography>
       <Videos videos={items} isLoaded={isLoaded} />
     </Box>

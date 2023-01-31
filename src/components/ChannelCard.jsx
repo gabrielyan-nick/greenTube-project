@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Typography, Box, CardContent, CardMedia } from "@mui/material";
 import { CheckCircle } from "@mui/icons-material";
@@ -15,9 +16,14 @@ const ChannelCard = ({
   width = "250px",
   id = "",
 }) => {
-  const thumbnail = channelDetail.thumbnail[0]?.url.includes("https", 0)
-    ? channelDetail.thumbnail[0]?.url
-    : `https:${channelDetail.thumbnail[0]?.url}`;
+  const maxRezThumbnail =
+    channelDetail?.thumbnail[2]?.url ||
+    channelDetail?.thumbnail[1]?.url ||
+    channelDetail?.thumbnail[0]?.url;
+  const thumbnail = maxRezThumbnail.includes("https", 0)
+    ? maxRezThumbnail
+    : `https:${maxRezThumbnail}`;
+
   return (
     <Box
       className={`${classN}`}
@@ -43,11 +49,7 @@ const ChannelCard = ({
           }}
         >
           <CardMedia
-            image={
-              channelDetail.thumbnail
-                ? thumbnail
-                : demoProfilePicture
-            }
+            image={channelDetail?.thumbnail ? thumbnail : demoProfilePicture}
             alt={channelDetail?.title}
             sx={{
               borderRadius: "50%",
@@ -71,6 +73,14 @@ const ChannelCard = ({
       </Link>
     </Box>
   );
+};
+
+ChannelCard.propTypes = {
+  channelDetail: PropTypes.object,
+  classN: PropTypes.string,
+  borderRadius: PropTypes.string,
+  width: PropTypes.string,
+  id: PropTypes.string,
 };
 
 export default ChannelCard;

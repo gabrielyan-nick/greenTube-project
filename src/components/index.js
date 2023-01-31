@@ -10,3 +10,4 @@ export { default as VideoCard } from "../components/VideoCard";
 export { default as ChannelCard } from "../components/ChannelCard";
 export { default as SkeletonVideoCard } from "../components/SkeletonVideoCard";
 export { default as SkeletonChannelCard } from "../components/SkeletonChannelCard";
+export { default as ErrorBoundary } from "../components/ErrorBoundary";

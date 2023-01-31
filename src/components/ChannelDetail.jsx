@@ -1,13 +1,13 @@
 import { React, useEffect, useState, useRef } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Videos, ChannelCard, SkeletonChannelCard } from "../components";
-import { Box, Typography } from "@mui/material";
 import {
-  fetchChannelDetail,
-  fetchChannelVideos,
-  setLazzyLoading,
-} from "../redux/actions/channelDetail";
+  Videos,
+  ChannelCard,
+  SkeletonChannelCard,
+} from "../components";
+import { Box, Typography } from "@mui/material";
+import { fetchChannelDetail } from "../redux/actions/channelDetail";
 import { setFetching } from "../redux/actions/videos";
 
 const ChannelDetail = () => {
@@ -19,8 +19,6 @@ const ChannelDetail = () => {
     useSelector(({ channelDetail }) => channelDetail);
   const { id } = useParams();
   const descrRef = useRef(null);
-
-  // const videoCount = +channelDetail?.statistics?.videoCount;
 
   useEffect(() => {
     dispatch(fetchChannelDetail(id));
@@ -81,9 +79,9 @@ const ChannelDetail = () => {
           background: "#272626",
         }}
       >
-        <div
-          style={{
-            height: "300px",
+        <Box
+          sx={{
+            height: { xs: "200px", md: "300px" },
             width: "100%",
             background: "rgb(1,135,73)",
             background:

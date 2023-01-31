@@ -7,7 +7,9 @@ const Videos = ({ videos, isLoaded, classN = "videos-wrapper" }) => {
       {isLoaded
         ? videos.map((item, i) => (
             <Box key={i}>
-              {(item.videoId && <VideoCard video={item} />) ||
+              {(item.videoId && (
+                <VideoCard video={item} />
+              )) ||
                 (item.channelId && (
                   <ChannelCard
                     channelDetail={item}

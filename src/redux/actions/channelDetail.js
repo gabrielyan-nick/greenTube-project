@@ -6,11 +6,13 @@ import {
   setNextPageToken,
   setLazzyLoading,
   setLoaded,
+  setError,
 } from "./videos";
 
 export const fetchChannelDetail =
   (id, pageToken = "", bool = false) =>
   (dispatch) => {
+    dispatch(setError(false));
     dispatch(setLoaded(bool));
     axios
       .get(`${BASE_URL}/channel?id=${id}&token=${pageToken}`, options) //.get(`${BASE_URL}/channels?part=snippet&id=${id}`, options)
@@ -24,7 +26,10 @@ export const fetchChannelDetail =
           dispatch(setNextPageToken(res?.data?.continuation));
         }
       })
-      .catch((e) => console.log(e));
+      .catch((e) => {
+        dispatch(setError(true));
+        console.log(e);
+      });
   };
 
 export const setChannelDetail = (payload) => {

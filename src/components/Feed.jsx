@@ -1,9 +1,8 @@
 import React from "react";
 import { Stack, Box, Typography } from "@mui/material";
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import { Sidebar, Videos } from "../components";
-import useFetch from "../utils/fetchFromApi";
-import { secondaryGreen, textGreen } from "../utils/constants";
+import { textGreen } from "../utils/constants";
 import { fetchVideos, setFetching, setCategory } from "../redux/actions/videos";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -43,7 +42,7 @@ const Feed = () => {
   }, []);
 
   return (
-    <Stack sx={{ flexDirection: { sx: "column", md: "row" } }}>
+    <Stack sx={{ flexDirection: { sx: "column", md: "row", height: '94vh' } }}>
       <Box
         className="aside"
         py="5px"

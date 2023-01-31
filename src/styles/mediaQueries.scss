@@ -1,0 +1,172 @@
+@media screen and (max-width: 1600px) {
+  .aside {
+    width: 170px;
+  }
+  .channel-content-wrapper {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  .videos-wrapper {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .aside {
+    width: 150px;
+  }
+  .rel-video-wrapper {
+    width: 40%;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .videos-wrapper {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .channel-content-wrapper {
+    width: 100%;
+  }
+  .rel-videos-wrapper {
+    width: 45%;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .video-content-wrapper {
+    flex-direction: column;
+  }
+  .rel-videos-wrapper {
+    width: 99%;
+    padding: 25px 5px 5px;
+    background-color: #454545;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .category-btn {
+    margin: 5px;
+  }
+
+  .aside {
+    width: auto;
+  }
+
+  .copyright {
+    display: none !important;
+  }
+
+  .channel-descr-wrapper {
+    width: calc(100% - 280px);
+    margin-right: 15px;
+    padding: 20px 0;
+  }
+
+  .channel-descr {
+    max-height: 235px;
+    overflow: hidden;
+  }
+
+  .video-detail-wrapper {
+    height: auto;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .search-bar {
+    width: 280px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .channel-content-wrapper {
+    flex-direction: column;
+    width: 100%;
+  }
+  .channel-descr-wrapper {
+    width: 90%;
+    margin: 0;
+  }
+  .search-wrapper {
+    margin-right: 0;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .scroll-horizontal {
+    overflow: auto !important;
+  }
+
+  .react-player {
+    height: 45vh !important;
+  }
+
+  .search-bar {
+    width: 200px;
+  }
+
+  .videos-wrapper {
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+
+  .video-card,
+  .skeleton {
+    height: 370px;
+  }
+
+  .video-img {
+    height: 290px;
+  }
+
+  .channel-descr {
+    width: 93%;
+    margin: 0;
+    padding: 20px;
+  }
+
+  .channel-card {
+    width: 100%;
+  }
+  .video-title-wrapper {
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .video-card,
+  .skeleton {
+    height: 380px;
+  }
+
+  .video-img {
+    height: 280px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .video-card,
+  .skeleton {
+    height: 350px;
+  }
+
+  .video-img {
+    height: 250px;
+  }
+  .search-bar {
+    width: 170px;
+  }
+  .header-wrapper {
+    padding: 10px;
+  }
+}
+
+@media screen and (max-width: 300px) {
+  .search-bar {
+    width: 150px;
+  }
+}

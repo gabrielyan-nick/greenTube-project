@@ -4,6 +4,7 @@ const initialState = {
   isLoaded: false,
   nextPageToken: "",
   fetching: false,
+  error: false,
 };
 
 const channelDetail = (state = initialState, action) => {
@@ -12,6 +13,11 @@ const channelDetail = (state = initialState, action) => {
       return {
         ...state,
         channelDetail: action.payload,
+      };
+    case "SET_ERROR":
+      return {
+        ...state,
+        error: action.payload,
       };
     case "SET_VIDEOS":
       return {

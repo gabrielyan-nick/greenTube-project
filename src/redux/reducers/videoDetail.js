@@ -1,7 +1,8 @@
 const initialState = {
   video: {},
   relatedVideos: [],
-  isLoaded: false
+  isLoaded: false,
+  error: false,
 };
 
 const videoDetail = (state = initialState, action) => {
@@ -11,6 +12,11 @@ const videoDetail = (state = initialState, action) => {
         ...state,
         video: action.payload,
       };
+      case "SET_ERROR":
+        return {
+          ...state,
+          error: action.payload,
+        };
       case "SET_RELATED_VIDEOS":
       return {
         ...state,

@@ -1,5 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Typography, Box, Card, CardContent, CardMedia } from "@mui/material";
 import { CheckCircle } from "@mui/icons-material";
@@ -13,7 +14,10 @@ import {
 } from "../utils/constants";
 
 const VideoCard = ({ video }) => {
-  const channelTitle = useSelector(({ channelDetail }) => channelDetail.channelDetail.title);
+  const channelTitle = useSelector(
+    ({ channelDetail }) => channelDetail.channelDetail.title
+  );
+  const location = useLocation();
 
   return (
     <Card
@@ -28,7 +32,12 @@ const VideoCard = ({ video }) => {
         <div style={{ position: "relative" }}>
           <CardMedia
             className="video-img"
-            image={video?.thumbnail[0]?.url}
+            image={
+              video?.thumbnail[3]?.url ||
+              video?.thumbnail[2]?.url ||
+              video?.thumbnail[1]?.url ||
+              video?.thumbnail[0]?.url
+            }
             alt={video?.title}
           />
           {video?.lengthText && (
@@ -59,12 +68,14 @@ const VideoCard = ({ video }) => {
       >
         <Link to={video?.videoId ? `/video/${video?.videoId}` : demoVideoUrl}>
           <Typography variant="subtitle1" color="#fff">
-            {video?.title.slice(0, 50) || demoVideoTitle.slice(0, 50)}
+            {video?.title.slice(0, 60) || demoVideoTitle.slice(0, 60)}
           </Typography>
         </Link>
         <Link
           to={
-            video?.channelId ? `/channel/${video?.channelId}` : demoChannelUrl
+            video?.channelId
+              ? `/channel/${video?.channelId}`
+              : location.pathname || demoChannelUrl
           }
         >
           <Typography
@@ -79,6 +90,10 @@ const VideoCard = ({ video }) => {
       </CardContent>
     </Card>
   );
+};
+
+VideoCard.propTypes = {
+  video: PropTypes.object,
 };
 
 export default VideoCard;

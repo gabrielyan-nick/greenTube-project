@@ -7,6 +7,7 @@ import {
   VideoDetail,
   ChannelDetail,
   SearchFeed,
+  ErrorBoundary,
 } from "./components";
 
 const App = () => (
@@ -14,10 +15,39 @@ const App = () => (
     <Box sx={{ backgroundColor: "#454545" }}>
       <Navbar />
       <Routes>
-        <Route path="/" exact element={<Feed />} />
-        <Route path="/video/:id" element={<VideoDetail />} />
-        <Route path="/channel/:id" element={<ChannelDetail />} />
-        <Route path="/search/:searchTerm" element={<SearchFeed />} />
+        <Route
+          path="/"
+          exact
+          element={
+            <ErrorBoundary>
+              <Feed />
+            </ErrorBoundary>
+          }
+        />
+        <Route
+          path="/video/:id"
+          element={
+            <ErrorBoundary>
+              <VideoDetail />
+            </ErrorBoundary>
+          }
+        />
+        <Route
+          path="/channel/:id"
+          element={
+            <ErrorBoundary>
+              <ChannelDetail />
+            </ErrorBoundary>
+          }
+        />
+        <Route
+          path="/search/:searchTerm"
+          element={
+            <ErrorBoundary>
+              <SearchFeed />
+            </ErrorBoundary>
+          }
+        />
       </Routes>
     </Box>
   </BrowserRouter>

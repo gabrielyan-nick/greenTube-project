@@ -8,7 +8,6 @@ const SkeletonChannelCard = (props) => (
     viewBox="0 0 1000 300"
     backgroundColor="#555454"
     foregroundColor="#317c40"
-    {...props}
   >
     <circle cx="136" cy="96" r="76" />
     <rect x="76" y="229" rx="0" ry="0" width="120" height="24" />

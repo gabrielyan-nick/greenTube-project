@@ -4,6 +4,7 @@ const initialState = {
   nextPageToken: "",
   fetching: false,
   category: "New",
+  error: false,
 };
 
 const videos = (state = initialState, action) => {
@@ -19,6 +20,11 @@ const videos = (state = initialState, action) => {
       return {
         ...state,
         isLoaded: action.payload,
+      };
+    case "SET_ERROR":
+      return {
+        ...state,
+        error: action.payload,
       };
     case "SET_NEXT_PAGE_TOKEN":
       return {
