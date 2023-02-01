@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BASE_URL, options, setError } from "./videos";
+import { BASE_URL, options} from "./videos";
 
 export const fetchVideoDetail = (id) => (dispatch) => {
   dispatch(setError(false));
@@ -33,6 +33,13 @@ export const setVideoDetail = (payload) => {
 export const setRelatedVideos = (payload) => {
   return {
     type: "SET_RELATED_VIDEOS",
+    payload,
+  };
+};
+
+export const setError = (payload) => {
+  return {
+    type: "SET_VIDEO_DETAIL_ERROR",
     payload,
   };
 };

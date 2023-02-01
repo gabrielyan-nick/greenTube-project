@@ -1,13 +1,5 @@
 import axios from "axios";
-import {
-  BASE_URL,
-  options,
-  setVideos,
-  setNextPageToken,
-  setLazzyLoading,
-  setLoaded,
-  setError,
-} from "./videos";
+import { BASE_URL, options } from "./videos";
 
 export const fetchChannelDetail =
   (id, pageToken = "", bool = false) =>
@@ -35,6 +27,48 @@ export const fetchChannelDetail =
 export const setChannelDetail = (payload) => {
   return {
     type: "SET_CHANNEL_DETAIL",
+    payload,
+  };
+};
+
+export const setVideos = (payload) => {
+  return {
+    type: "SET_CHANNEL_VIDEOS",
+    payload,
+  };
+};
+
+export const setNextPageToken = (token) => {
+  return {
+    type: "SET_CHANNEL_NEXT_PAGE_TOKEN",
+    payload: token,
+  };
+};
+
+export const setLoaded = (payload) => {
+  return {
+    type: "SET_CHANNEL_LOADED",
+    payload,
+  };
+};
+
+export const setError = (payload) => {
+  return {
+    type: "SET_CHANNEL_ERROR",
+    payload,
+  };
+};
+
+export const setLazzyLoading = (payload) => {
+  return {
+    type: "SET_CHANNEL_LAZZY_LOADING",
+    payload,
+  };
+};
+
+export const setFetching = (payload) => {
+  return {
+    type: "SET_CHANNEL_FETCHING",
     payload,
   };
 };

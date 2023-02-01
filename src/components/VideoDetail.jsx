@@ -9,7 +9,9 @@ import { Videos } from "../components";
 
 const VideoDetail = () => {
   const [isTabletWidth, setIsTabletWidth] = useState(false);
+  const [btnShowMore, setBtnShowMore] = useState(false);
   const [isOpenDescr, setOpenDescr] = useState(false);
+  const [isBigDescr, setIsBigDescr] = useState(false);
   const { id } = useParams();
   const dispatch = useDispatch();
   const { video, relatedVideos, isLoaded } = useSelector(
@@ -17,12 +19,17 @@ const VideoDetail = () => {
   );
   const descrRef = useRef(null);
   const publishDate = new Date(video.uploadDate).toUTCString().slice(5, -13);
-  console.log(descrRef?.current?.scrollHeight);
+
   useEffect(() => {
     dispatch(fetchVideoDetail(id));
+    window.scrollTo(0, 0);
+    descrRef?.current?.scrollHeight > 130 && setBtnShowMore(true);
+    descrRef?.current?.scrollHeight > 130 && setIsBigDescr(true);
   }, [id]);
 
-  useEffect(() => onSetDeviceWidth(), []);
+  useEffect(() => {
+    onSetDeviceWidth();
+  }, []);
 
   useEffect(() => {
     window.addEventListener("resize", onSetDeviceWidth);
@@ -65,7 +72,7 @@ const VideoDetail = () => {
             px={{ xs: 1, sm: 2, md: 4 }}
             className="video-title-wrapper"
           >
-            <Box sx={{ width: "80%" }}>
+            <Box sx={{ width: { xs: "100%", md: "80%" } }}>
               <Typography variant="h6" color="#fff" fontWeight="bold">
                 {video.title}
               </Typography>
@@ -104,17 +111,14 @@ const VideoDetail = () => {
               px={3}
               py={2}
               sx={{
-                borderRadius: `${
-                  isTabletWidth || descrRef?.current?.scrollHeight > 130
-                    ? "8px 8px 0 0"
-                    : "8px"
-                }`,
+                borderRadius: `${isBigDescr ? "8px 8px 0 0" : "8px"}`,
                 backgroundColor: "#272626",
                 height: `${
-                  (descrRef?.current?.scrollHeight > 130 && !isOpenDescr) ||
-                  descrRef?.current?.scrollHeight > 130
+                  isBigDescr && !isOpenDescr
                     ? "130px"
-                    : `${descrRef?.current?.scrollHeight}px`
+                    : isBigDescr && isOpenDescr
+                    ? `auto`
+                    : `auto`
                 }`,
                 overflowY: "hidden",
                 transition: "all .3s",
@@ -123,7 +127,7 @@ const VideoDetail = () => {
             >
               {video?.description}
             </Typography>
-            {descrRef.current.scrollHeight > 130 ? (
+            {btnShowMore && (
               <button
                 onClick={onToggleOpenDescr}
                 className="descr-resize-btn"
@@ -136,8 +140,6 @@ const VideoDetail = () => {
                   Show more
                 </Typography>
               </button>
-            ) : (
-              <></>
             )}
           </Box>
         </Box>

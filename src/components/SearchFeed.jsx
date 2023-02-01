@@ -43,7 +43,7 @@ const SearchFeed = () => {
     <Box
       ref={wrapper}
       p={{ md: 2, sm: 1, xs: "5px" }}
-      sx={{ overflowY: "auto", height: "90vh" }}
+      sx={{ overflowY: "auto", height: "92vh" }}
     >
       <Typography
         variant="h4"

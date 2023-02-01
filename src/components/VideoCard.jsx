@@ -83,7 +83,7 @@ const VideoCard = ({ video }) => {
             variant="subtitle2"
             color="gray"
           >
-            {video?.channelTitle || channelTitle || demoChannelTitle}
+            {video?.channelTitle?.slice(0, 40) || channelTitle?.slice(0, 40) || demoChannelTitle}
             <CheckCircle sx={{ fontSize: 13, color: "gray", ml: "5px" }} />
           </Typography>
         </Link>

@@ -12,7 +12,7 @@ const videoDetail = (state = initialState, action) => {
         ...state,
         video: action.payload,
       };
-      case "SET_ERROR":
+      case "SET_VIDEO_DETAIL_ERROR":
         return {
           ...state,
           error: action.payload,

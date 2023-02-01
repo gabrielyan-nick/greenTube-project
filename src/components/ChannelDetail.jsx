@@ -1,14 +1,10 @@
 import { React, useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  Videos,
-  ChannelCard,
-  SkeletonChannelCard,
-} from "../components";
+import { Videos, ChannelCard, SkeletonChannelCard } from "../components";
 import { Box, Typography } from "@mui/material";
 import { fetchChannelDetail } from "../redux/actions/channelDetail";
-import { setFetching } from "../redux/actions/videos";
+import { setFetching } from "../redux/actions/channelDetail";
 
 const ChannelDetail = () => {
   const [isTabletWidth, setIsTabletWidth] = useState(false);
@@ -153,7 +149,7 @@ const ChannelDetail = () => {
             )}
           </div>
           {(channelDetail?.description &&
-            channelDetail?.description.length > 735) ||
+            channelDetail?.description?.length > 735) ||
           isMobileWidth ? (
             <button onClick={onToggleOpenDescr} className="descr-resize-btn">
               <Typography variant="button" className="btn-text">
