@@ -4,7 +4,7 @@ export const BASE_URL = "https://youtube-v3-alternative.p.rapidapi.com";
 
 export const options = {
   headers: {
-    "X-RapidAPI-Key": process.env.REACT_APP_RAPID_API_KEY,
+    "X-RapidAPI-Key": '10a44e84d0mshde99617f2983deep158d46jsne48c15549c7d',
     "X-RapidAPI-Host": "youtube-v3-alternative.p.rapidapi.com",
   },
 };
