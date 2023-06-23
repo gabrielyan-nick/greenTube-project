@@ -7,7 +7,6 @@ Youtube-clone pet-project based on [Youtube free API](https://rapidapi.com/ytdlf
 **Stack:**
 
 - ReactJS
+- Redux (thunk)  
 - MaterialUI
-- Redux
-- Redux thunk
 - Axios
