@@ -76,7 +76,10 @@ const VideoDetail = () => {
               <Typography variant="h6" color="#fff" fontWeight="bold">
                 {video.title}
               </Typography>
-              <Link to={`/channel/${video.channelId}`}>
+              <Link
+                to={`/channel/${video.channelId}`}
+                style={{ display: "inline-block" }}
+              >
                 <Typography
                   variant="subtitle1"
                   color="#fff"

@@ -37,20 +37,21 @@ const Feed = () => {
     }
   };
 
-  const onSelectCategory = useCallback((item) => {
-    dispatch(setCategory(item));
-  }, []);
+  const onSelectCategory = (item) => {
+    item !== category && dispatch(setCategory(item));
+  };
 
   return (
-    <Stack sx={{ flexDirection: { sx: "column", md: "row", height: '94vh' } }}>
+    <Stack sx={{ flexDirection: { sx: "column", md: "row" }, height: "94vh" }}>
       <Box
-        className="aside"
         py="5px"
         sx={{
           height: { sx: "auto", md: "92vh" },
           borderRight: "1px solid #3F9C51",
           px: { sx: 0, md: 2 },
+          width: { md: "13%" },
         }}
+        component="aside"
       >
         <Sidebar onSelectCategory={onSelectCategory} category={category} />
         <Typography
@@ -64,7 +65,7 @@ const Feed = () => {
       <Box
         ref={wrapper}
         p={{ md: 2, sm: 1, xs: "5px" }}
-        sx={{ overflowY: "auto", height: "90vh" }}
+        sx={{ overflowY: "auto", height: "90vh", width: { md: "87%" } }}
       >
         <Typography
           variant="h4"

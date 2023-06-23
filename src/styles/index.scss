@@ -19,7 +19,14 @@ body {
 a {
   text-decoration: none;
   color: black;
-  cursor: pointer
+  cursor: pointer;
+}
+
+li,
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
 ::-webkit-scrollbar {
@@ -84,10 +91,9 @@ a {
   border-radius: 20px;
   transition: all 0.3s ease;
   color: #fff;
-}
-
-.aside {
-  width: 240px;
+  width: 100%;
+  flex-shrink: 0;
+  flex-grow: 0;
 }
 
 .videos-wrapper {

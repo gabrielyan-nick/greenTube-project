@@ -17,25 +17,27 @@ const Sidebar = ({ onSelectCategory, category }) => {
         height: { sx: "auto", md: "95%" },
         flexDirection: { md: "column" },
       }}
+      component="ul"
     >
       {categories.map((item, i) => (
-        <button
-          key={i}
-          className="category-btn"
-          style={{
-            background: item.name === category && mainGreen,
-          }}
-          onClick={() => onSelectCategory(item.name)}
-        >
-          <span
+        <li key={i}>
+          <button
+            className="category-btn"
             style={{
-              color: item.name === category ? "#fff" : textGreen,
+              background: item.name === category && mainGreen,
             }}
+            onClick={() => onSelectCategory(item.name)}
           >
-            {item.icon}
-          </span>
-          <span>{item.name}</span>
-        </button>
+            <span
+              style={{
+                color: item.name === category ? "#fff" : textGreen,
+              }}
+            >
+              {item.icon}
+            </span>
+            <span>{item.name}</span>
+          </button>
+        </li>
       ))}
     </Stack>
   );
